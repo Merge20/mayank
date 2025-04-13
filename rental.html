@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rent a Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    nav {
+      background-color: #34495e;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex: 1;
+    }
+    .username {
+      color: white;
+      font-weight: 500;
+    }
+    .nav-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+    .nav-logout {
+      display: flex;
+      justify-content: flex-end;
+      flex: 1;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px 10px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .logout-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+    .container {
+      padding: 40px;
+      flex: 1;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      width: 100%;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+      border-radius: 5px;
+    }
+    .dropdown-content a:hover {
+      background-color: #ddd;
+      border-radius: 5px;
+    }
+    .rental-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 30px;
+    }
+    .available-books {
+      flex: 2;
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .rental-form {
+      flex: 1;
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .book-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .book-item {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .book-item:hover {
+      background-color: #f0f8ff;
+      border-color: #2c3e50;
+    }
+    .book-item.selected {
+      background-color: #e1f5fe;
+      border-color: #0288d1;
+    }
+    .book-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .book-author {
+      color: #666;
+      font-size: 14px;
+    }
+    .book-genre {
+      color: #16a085;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .btn {
+      background-color: #34495e;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      width: 100%;
+    }
+    .btn:hover {
+      background-color: #2c3e50;
+    }
+    .page-title {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .page-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .genre-filter {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .genre-btn {
+      padding: 5px 15px;
+      background-color: #ecf0f1;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .genre-btn:hover {
+      background-color: #bdc3c7;
+    }
+    .genre-btn.active {
+      background-color: #16a085;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Library Management System</h1>
+  </header>
+
+  <nav>
+    <div class="nav-user">
+      <span class="username">John Doe</span>
+    </div>
+    <div class="nav-center">
+      <a href="./Home.html">Home</a>
+      <div class="dropdown">
+        <a href="#">Books ▾</a>
+        <div class="dropdown-content">
+          <a href="#" onclick="filterByGenre('Fiction')">Fiction</a>
+          <a href="#" onclick="filterByGenre('History')">History</a>
+          <a href="#" onclick="filterByGenre('Comic')">Comic</a>
+          <a href="#" onclick="filterByGenre('Travel')">Travel</a>
+        </div>
+      </div>
+      <a href="./addBooks.html">Add Book</a>
+      <a href="./rental.html" style="background-color: #16a085; border-radius: 4px;">Rent a Book</a>
+    </div>
+    <div class="nav-logout">
+      <button class="logout-btn">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2 class="page-title">Rent a Book</h2>
+    <p class="page-subtitle">Select a book and fill in your details to complete the rental</p>
+    
+    <div class="rental-container">
+      <div class="available-books">
+        <h3>Available Books</h3>
+        <div class="genre-filter">
+          <button class="genre-btn active" onclick="filterByGenre('all')">All</button>
+          <button class="genre-btn" onclick="filterByGenre('Fiction')">Fiction</button>
+          <button class="genre-btn" onclick="filterByGenre('History')">History</button>
+          <button class="genre-btn" onclick="filterByGenre('Comic')">Comic</button>
+          <button class="genre-btn" onclick="filterByGenre('Travel')">Travel</button>
+        </div>
+        <div class="book-list" id="bookList">
+          <!-- Books will be populated by JavaScript -->
+        </div>
+      </div>
+      
+      <div class="rental-form">
+        <h3>Rental Information</h3>
+        <form id="rentalForm">
+          <div class="form-group">
+            <label for="selectedBook">Selected Book</label>
+            <input type="text" id="selectedBook" class="form-control" readonly>
+          </div>
+          <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" id="author" class="form-control" readonly>
+          </div>
+          <div class="form-group">
+            <label for="name">Your Full Name</label>
+            <input type="text" id="name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="duration">Rental Duration (days)</label>
+            <select id="duration" class="form-control" required>
+              <option value="">Select duration</option>
+              <option value="7">7 days</option>
+              <option value="14">14 days</option>
+              <option value="21">21 days</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Complete Rental</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Library Management System. All rights reserved.
+  </footer>
+
+  <script>
+    // Sample book data with genres
+    const books = [
+      { title: "To Kill a Mockingbird", author: "Harper Lee", genre: "Fiction" },
+      { title: "1984", author: "George Orwell", genre: "Fiction" },
+      { title: "The Great Gatsby", author: "F. Scott Fitzgerald", genre: "Fiction" },
+      { title: "Pride and Prejudice", author: "Jane Austen", genre: "Fiction" },
+      { title: "A Brief History of Time", author: "Stephen Hawking", genre: "History" },
+      { title: "Sapiens", author: "Yuval Noah Harari", genre: "History" },
+      { title: "The Diary of a Young Girl", author: "Anne Frank", genre: "History" },
+      { title: "The Walking Dead Vol. 1", author: "Robert Kirkman", genre: "Comic" },
+      { title: "Watchmen", author: "Alan Moore", genre: "Comic" },
+      { title: "Maus", author: "Art Spiegelman", genre: "Comic" },
+      { title: "Into the Wild", author: "Jon Krakauer", genre: "Travel" },
+      { title: "Eat, Pray, Love", author: "Elizabeth Gilbert", genre: "Travel" }
+    ];
+
+    // Function to display books based on genre filter
+    function displayBooks(genre = 'all') {
+      const bookList = document.getElementById('bookList');
+      bookList.innerHTML = '';
+      
+      const filteredBooks = genre === 'all' 
+        ? books 
+        : books.filter(book => book.genre === genre);
+      
+      filteredBooks.forEach(book => {
+        const bookItem = document.createElement('div');
+        bookItem.className = 'book-item';
+        bookItem.innerHTML = `
+          <div class="book-title">${book.title}</div>
+          <div class="book-author">${book.author}</div>
+          <div class="book-genre">${book.genre}</div>
+        `;
+        bookItem.addEventListener('click', () => selectBook(bookItem, book.title, book.author));
+        bookList.appendChild(bookItem);
+      });
+    }
+
+    // Function to filter books by genre
+    function filterByGenre(genre) {
+      displayBooks(genre);
+      
+      // Update active button state
+      document.querySelectorAll('.genre-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === genre || (genre === 'all' && btn.textContent === 'All')) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    function selectBook(element, title, author) {
+      document.querySelectorAll('.book-item').forEach(book => {
+        book.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      document.getElementById('selectedBook').value = title;
+      document.getElementById('author').value = author;
+    }
+    
+    document.getElementById('rentalForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const selectedBook = document.getElementById('selectedBook').value;
+      if (!selectedBook) {
+        alert('Please select a book first');
+        return;
+      }
+      alert(`Thank you for renting "${selectedBook}"!\nWe'll contact you shortly with confirmation.`);
+      this.reset();
+      document.querySelectorAll('.book-item').forEach(book => {
+        book.classList.remove('selected');
+      });
+    });
+
+    document.querySelector('.logout-btn').addEventListener('click', function() {
+      if(confirm('Are you sure you want to logout?')) {
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Initialize the page with all books
+    displayBooks();
+  </script>
+</body>
+</html>
