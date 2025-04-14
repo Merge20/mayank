@@ -31,18 +31,9 @@ if (!isset($_SESSION['username'])) {
       <span class="username"><?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></span>
     </div>
     <div class="nav-center">
-      <a href="./Home.html" style="background-color: #16a085; border-radius: 4px;">Home</a>
-      <a href="./addBooks.html">Add Book</a>
-      <a href="./rental.html">Rent a Book</a>
-      <div class="dropdown">
-        <a href="#">Books ▾</a>
-        <div class="dropdown-content">
-          <a href="#">Fictional</a>
-          <a href="#">Historic</a>
-          <a href="#">Comic</a>
-          <a href="#">Travel</a>
-        </div>
-      </div>
+      <a href="./Home.php" style="background-color: #16a085; border-radius: 4px;">Home</a>
+      <a href="./addBooks.php">Add Book</a>
+      <a href="./rental.php">Rent a Book</a>
     </div>
     <div class="nav-logout">
       <button class="logout-btn" onclick="window.location.href='./database/logout.php'">Logout</button>

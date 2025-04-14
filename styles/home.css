@@ -4,126 +4,136 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     background-color: #f4f4f4;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
+
 header {
     background-color: #2c3e50;
     color: white;
     padding: 20px 0;
     text-align: center;
 }
+
 nav {
     background-color: #34495e;
     padding: 10px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 40px;
 }
-/* Update the .nav-user styles */
+
 .nav-user {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 8px 15px;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  max-width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: 20px;
 }
 
 .nav-user:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .profile-icon {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #16a085;
-  border-radius: 50%;
-  padding: 6px;
-  transition: transform 0.3s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #16a085;
+    border-radius: 50%;
+    padding: 6px;
+    transition: transform 0.3s ease;
 }
 
 .profile-icon:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .profile-icon svg {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
 
 .username {
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  text-transform: capitalize;
-  letter-spacing: 0.5px;
-  position: relative;
-  padding-right: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-right: 10px;
 }
 
 .username::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 60%;
-  width: 1px;
-  background-color: rgba(255, 255, 255, 0.3);
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
 }
-.username {
-    color: white;
-    font-weight: 500;
-    font-size: 16px;
-}
+
 .nav-center {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    flex: 1;
 }
+
 .nav-logout {
-    display: flex;
-    justify-content: flex-end;
-    flex: 1;
+    position: absolute;
+    right: 20px;
 }
+
 nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
+
 nav a:hover {
-    text-decoration: underline;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
 }
+
 .logout-btn {
     background-color: #e74c3c;
     color: white;
     border: none;
-    padding: 5px 15px;
+    padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
+    transition: all 0.3s ease;
 }
+
 .logout-btn:hover {
     background-color: #c0392b;
+    transform: scale(1.05);
 }
+
 .container {
     padding: 40px;
     text-align: center;
     flex: 1;
 }
+
 footer {
     background-color: #2c3e50;
     color: white;
@@ -131,10 +141,12 @@ footer {
     padding: 15px;
     width: 100%;
 }
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -144,9 +156,11 @@ footer {
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     z-index: 1;
 }
+
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 .dropdown-content a {
     color: black;
     padding: 10px 15px;
@@ -155,11 +169,15 @@ footer {
     border-radius: 5px;
     margin: 2px 0;
 }
+
 .dropdown-content a:hover {
     background-color: #ddd;
     border-radius: 5px;
 }
+
 img {
     max-width: 100%;
     height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
