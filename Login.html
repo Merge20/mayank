@@ -4,22 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles/login.css">
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form>
+        <div id="message"></div> <!-- Added message container -->
+        <form id="loginForm" method="POST">
             <label for="username">Enter Username:</label> 
             <input type="text" id="username" name="username" required>
             <br><br>
             <label for="password">Enter Password:</label> 
             <input type="password" id="password" name="password" required>
             <br><br>
-            <a href="./Forms.html"  class="create-account">Create an account</a><br>
-            <button  class="submit-btn">Login</button>
-            
+            <a href="./register.html" class="create-account">Create an account</a><br>
+            <button type="submit" class="submit-btn">Login</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const messageDiv = document.getElementById("message");
+            messageDiv.innerHTML = "";
+            
+            fetch("./database/login.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === "success") {
+                    window.location.href = "./home.php";
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="error-message">
+                            ${data}
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                messageDiv.innerHTML = `
+                    <div class="error-message">
+                        An error occurred. Please try again.
+                    </div>
+                `;
+            });
+        });
+    </script>
 </body>
 </html>
